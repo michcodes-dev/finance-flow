@@ -57,7 +57,7 @@
             <section class="welcome">
                 <div>
                     <p class="eyebrow">PERSONAL FINANCE</p>
-                    <h1>Good morning</h1>
+                    <h1 id="greeting">Good morning</h1>
                     <p> Here's what's happening with your money.</p>
                 </div>
 
@@ -76,13 +76,13 @@
                 <div class="summary-card">
                     <p>Total Income</p>
                     <h2 id="total-income">₦0.00</h2>
-                    <span>This month</span>
+                    <span id="income-period">This month</span>
                 </div>
                 
                 <div class="summary-card">
                     <p>Total Expenses</p>
                     <h2 id="total-expenses">₦0.00</h2>
-                    <span>This month</span>
+                    <span id="expense-period">This month</span>
                 </div>
             </section>
             
@@ -109,8 +109,7 @@
                         </select>
                     </div>
                     
-                    <div class="chart-placeholder">
-                        <p>Chart coming soon...</p>
+                    <div id="spending-chart" class="spending-chart">
                     </div>
                 </div>
                 
