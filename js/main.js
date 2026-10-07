@@ -1,6 +1,5 @@
 "use strict";
 const greetingEl = document.querySelector("#greeting");
-const username = "Michael";
 function updateGreeting() {
     const hour = new Date().getHours();
     let greeting = "";
@@ -16,13 +15,17 @@ function updateGreeting() {
     else {
         greeting = "Good night";
     }
-    greetingEl.textContent = `${greeting}, ${username}`;
+    greetingEl.textContent = `${greeting}, User`;
 }
 updateGreeting();
-const savedTransactions = localStorage.getItem("financeflow-transactions");
-const transactions = savedTransactions
-    ? JSON.parse(savedTransactions)
-    : [];
+let transactions = [];
+function loadTransactions() {
+    const savedTransactions = localStorage.getItem("financeflow-transactions");
+    transactions = savedTransactions
+        ? JSON.parse(savedTransactions)
+        : [];
+}
+loadTransactions();
 const addTransactionBtn = document.querySelector(".add-transaction-btn");
 const transactionModal = document.querySelector("#transaction-modal");
 addTransactionBtn?.addEventListener("click", () => {
@@ -129,6 +132,7 @@ transactionForm?.addEventListener("submit", (event) => {
     localStorage.setItem("financeflow-transactions", JSON.stringify(transactions));
     renderTransactions();
     updateSummary();
+    renderSpendingOverview();
     transactionForm.reset();
     selectedType = "income";
     typeButtons.forEach((button) => {
@@ -185,28 +189,58 @@ function calculateSpending(period) {
 function renderSpendingOverview() {
     const spending = calculateSpending(periodFilter.value);
     spendingChart.innerHTML = "";
-    const totalSpending = Object.values(spending).reduce((total, amount) => total + amount, 0);
-    Object.entries(spending).forEach(([category, amount]) => {
-        const percentage = (amount / totalSpending) * 100;
-        const row = document.createElement("div");
-        row.className = "spending-row";
-        const info = document.createElement("div");
-        info.className = "spending-info";
+    const entries = Object.entries(spending);
+    if (entries.length === 0) {
+        spendingChart.innerHTML = `
+            <div class="empty-spending">
+                <i class="fa-solid fa-chart-column"></i>
+                <p>No expenses for this period yet.</p>
+            </div>
+        `;
+        return;
+    }
+    const maxAmount = Math.max(...entries.map(([, amount]) => amount));
+    const chartMax = Math.ceil(maxAmount / 500) * 500 || 500;
+    const scaleValues = [
+        chartMax,
+        chartMax * 0.75,
+        chartMax * 0.5,
+        chartMax * 0.25,
+        0
+    ];
+    const chartArea = document.createElement("div");
+    chartArea.className = "spending-chart-area";
+    const scale = document.createElement("div");
+    scale.className = "spending-scale";
+    scaleValues.forEach((value) => {
+        const label = document.createElement("span");
+        label.textContent = formatNaira(value);
+        scale.appendChild(label);
+    });
+    const bars = document.createElement("div");
+    bars.className = "spending-bars";
+    entries.forEach(([category, amount]) => {
+        const percentage = (amount / chartMax) * 100;
+        const column = document.createElement("div");
+        column.className = "spending-column";
+        const amountLabel = document.createElement("span");
+        amountLabel.className = "spending-amount";
+        amountLabel.textContent = formatNaira(amount);
+        const barWrapper = document.createElement("div");
+        barWrapper.className = "spending-bar-wrapper";
+        const bar = document.createElement("div");
+        bar.className = "spending-fill";
+        bar.style.height = `${percentage}%`;
+        barWrapper.appendChild(bar);
         const categoryName = document.createElement("span");
+        categoryName.className = "spending-category";
         categoryName.textContent =
             category.charAt(0).toUpperCase() + category.slice(1);
-        const categoryAmount = document.createElement("span");
-        categoryAmount.textContent = formatNaira(amount);
-        info.append(categoryName, categoryAmount);
-        const bar = document.createElement("div");
-        bar.className = "spending-bar";
-        const fill = document.createElement("div");
-        fill.className = "spending-fill";
-        fill.style.width = `${percentage}%`;
-        bar.appendChild(fill);
-        row.append(info, bar);
-        spendingChart.appendChild(row);
+        column.append(amountLabel, barWrapper, categoryName);
+        bars.appendChild(column);
     });
+    chartArea.append(scale, bars);
+    spendingChart.appendChild(chartArea);
 }
 function updateSummary() {
     let income = 0;
@@ -228,8 +262,27 @@ function updateSummary() {
 renderTransactions();
 updateSummary();
 renderSpendingOverview();
+window.addEventListener("pageshow", () => {
+    loadTransactions();
+    renderTransactions();
+    updateSummaryPeriod();
+    updateSummary();
+    renderSpendingOverview();
+});
 periodFilter.addEventListener("change", () => {
     renderSpendingOverview();
     updateSummaryPeriod();
     updateSummary();
+});
+const profileBtn = document.querySelector(".profile-btn");
+const profileDropdown = document.querySelector(".profile-dropdown");
+profileBtn?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    profileDropdown?.classList.toggle("show");
+});
+profileDropdown?.addEventListener("click", (event) => {
+    event.stopPropagation();
+});
+document.addEventListener("click", () => {
+    profileDropdown?.classList.remove("show");
 });
