@@ -80,6 +80,7 @@ function getCategoryIcon(category) {
         transport: "fa-car",
         salary: "fa-money-bill-wave",
         other: "fa-wallet",
+        entertainment: "fa-film",
     };
     return icons[category.toLowerCase()] ?? "fa-wallet";
 }
