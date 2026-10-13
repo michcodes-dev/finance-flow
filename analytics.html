@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics | FinanceFlow</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            Finance<span>Flow</span>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="transactions.html">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                <span>Transactions</span>
+            </a>
+
+            <a href="analytics.html" class="active">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Budgets</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <span class="eyebrow">FINANCIAL INSIGHTS</span>
+                <h1>Analytics</h1>
+                <p>
+                    Understand where your money is going.
+                </p>
+            </div>
+        </header>
+        
+        <section class="analytics-summary">
+            <div class="analytics-card">
+                <div class="analytics-card-top">
+                    <span>Total Income</span>
+                    <div class="analytics-icon income">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+                </div>
+
+                <strong id="analytics-income">₦0.00</strong>
+
+                <small>This month</small>
+            </div>
+            
+            <div class="analytics-card">
+                <div class="analytics-card-top">
+                    <span>Total Expenses</span>
+                    <div class="analytics-icon expense">
+                        <i class="fa-solid fa-arrow-trend-down"></i>
+                    </div>
+                </div>
+                <strong id="analytics-expenses">₦0.00</strong>
+                <small>This month</small>
+            </div>
+            
+            <div class="analytics-card">
+                <div class="analytics-card-top">
+                    <span>Net Cash Flow</span>
+                    <div class="analytics-icon balance">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                </div>
+                <strong id="analytics-cash-flow">₦0.00</strong>
+                <small>Income minus expenses</small>
+            </div>
+            
+            <div class="analytics-card">
+                <div class="analytics-card-top">
+                    <span>Transactions</span>
+                    <div class="analytics-icon">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+                </div>
+                <strong id="analytics-transactions">0</strong>
+                <small>This month</small>
+            </div>
+        </section>
+        
+        <section class="analytics-grid">
+            <div class="analytics-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Income vs Expenses</h2>
+                        <p>Compare your money coming in and going out.</p>
+                    </div>
+
+                    <select id="analytics-period">
+                        <option value="month">This Month</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                
+                <div id="income-expense-chart" class="chart-area">
+                    <!-- Chart will be generated with TypeScript -->
+                </div>
+            </div>
+
+            <div class="analytics-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Spending by Category</h2>
+                        <p>See where most of your expenses go.</p>
+                    </div>
+                </div>
+
+                <div id="category-chart" class="category-chart">
+                    <!-- Category chart will be generated with TypeScript -->
+                </div>
+            </div>
+        </section>
+        
+        <section class="analytics-panel spending-breakdown">
+            <div class="panel-header">
+                <div>
+                    <h2>Spending Breakdown</h2>
+                    <p>Your expenses grouped by category.</p>
+                </div>
+            </div>
+
+            <div id="spending-breakdown-list">
+                <!-- Spending breakdown generated with TypeScript -->
+            </div>
+        </section>
+    </main>
+    <script type="module" src="./js/analytics.js"></script>
+</body>
+</html>
