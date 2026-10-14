@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | FinanceFlow</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            Finance<span>Flow</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="transactions.html">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                <span>Transactions</span>
+            </a>
+
+            <a href="analytics.html">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+
+            <a href="budgets.html">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Budgets</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="active">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <div>
+                <span class="eyebrow">PREFERENCES</span>
+                <h1>Settings</h1>
+                <p>Manage your account and customize FinanceFlow.</p>
+            </div>
+        </header>
+
+        <section class="budgets-panel settings-panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Personal Information</h2>
+                    <p>Customize how your account appears.</p>
+                </div>
+            </div>
+
+            <form id="profile-settings-form" class="settings-form">
+                <div class="settings-field">
+                    <label for="display-name">Display Name</label>
+                    <input
+                        type="text"
+                        id="display-name"
+                        name="displayName"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+
+                <div class="settings-field">
+                    <label for="currency">Currency</label>
+                    <select id="currency" name="currency">
+                        <option value="NGN">Nigerian Naira (₦)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="add-budget-btn">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Changes
+                </button>
+
+                <p id="settings-message" role="status"></p>
+            </form>
+        </section>
+
+        <section class="budgets-panel settings-panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Notifications</h2>
+                    <p>Choose which alerts you want to see.</p>
+                </div>
+            </div>
+
+            <label class="settings-toggle-row" for="budget-notifications">
+                <span>
+                    <strong>Budget Alerts</strong>
+                    <small>Show alerts when spending approaches or exceeds a budget.</small>
+                </span>
+
+                <input type="checkbox" id="budget-notifications" checked>
+            </label>
+        </section>
+    </main>
+
+    <script type="module" src="js/settings.js"></script>
+</body>
+</html>

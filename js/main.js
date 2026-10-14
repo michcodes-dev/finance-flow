@@ -14,7 +14,8 @@ function updateGreeting() {
     else {
         greeting = "Good night";
     }
-    greetingEl.textContent = `${greeting}, User`;
+    const username = localStorage.getItem("financeflow-display-name") || "User";
+    greetingEl.textContent = `${greeting}, ${username}`;
 }
 updateGreeting();
 let transactions = [];
@@ -310,6 +311,24 @@ document.addEventListener("keydown", (event) => {
         closeProfileDropdown();
     }
 });
+// Sync the saved display name with the profile
+function updateProfileDisplay() {
+    const username = localStorage.getItem("financeflow-display-name") || "User";
+    const profileName = document.querySelector("#profile-name");
+    const profileAvatar = document.querySelector("#profile-avatar");
+    const dropdownName = document.querySelector("#dropdown-name");
+    const dropdownAvatar = document.querySelector("#dropdown-avatar");
+    const initial = username.trim().charAt(0).toUpperCase() || "U";
+    if (profileName)
+        profileName.textContent = username;
+    if (profileAvatar)
+        profileAvatar.textContent = initial;
+    if (dropdownName)
+        dropdownName.textContent = username;
+    if (dropdownAvatar)
+        dropdownAvatar.textContent = initial;
+}
+updateProfileDisplay();
 const notificationBtn = document.querySelector("#notification-btn");
 const notificationDropdown = document.querySelector("#notification-dropdown");
 function closeNotificationDropdown() {
@@ -354,6 +373,21 @@ function renderNotifications() {
     const notificationDot = document.querySelector(".notification-dot");
     if (!notificationList)
         return;
+    const notificationsEnabled = localStorage.getItem("financeflow-budget-notifications") !== "false";
+    if (!notificationsEnabled) {
+        notificationList.innerHTML = `
+        <div class="notification-empty">
+            <i class="fa-regular fa-bell"></i>
+            <p>Notifications are turned off.</p>
+            <span>Enable Budget Alerts in Settings to see alerts.</span>
+        </div>
+    `;
+        if (notificationCount)
+            notificationCount.textContent = "0";
+        if (notificationDot)
+            notificationDot.hidden = true;
+        return;
+    }
     const budgets = JSON.parse(localStorage.getItem("financeflow-budgets") || "[]");
     const savedTransactions = localStorage.getItem("financeflow-transactions");
     const allTransactions = savedTransactions

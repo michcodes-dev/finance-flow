@@ -2997,3 +2997,176 @@ label {
     font-size: 0.88rem;
 }
 
+
+/* =========================
+   SETTINGS PAGE
+========================= */
+
+.settings-panel {
+    margin-top: 24px;
+    padding: 28px;
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8e5);
+    border-radius: 16px;
+    max-width: 100%;
+    box-shadow: 0 4px 16px rgba(10, 40, 32, 0.04);
+}
+
+.settings-panel h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--text-color, #102c27);
+}
+
+.settings-panel > p {
+    margin: 0 0 26px;
+    font-size: 14px;
+    color: var(--muted-color, #71817c);
+    line-height: 1.6;
+}
+
+/* Personal information form */
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-width: 560px;
+}
+
+.settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.settings-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-color, #102c27);
+}
+
+.settings-field input,
+.settings-field select {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    border: 1px solid var(--border-color, #dce5e1);
+    border-radius: 9px;
+    background: var(--input-bg, #f8faf9);
+    color: var(--text-color, #102c27);
+    font: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.settings-field input::placeholder {
+    color: #94a39e;
+}
+
+.settings-field input:focus,
+.settings-field select:focus {
+    outline: none;
+    border-color: #ff9d24;
+    box-shadow: 0 0 0 3px rgba(255, 157, 36, 0.14);
+}
+
+/* Save button */
+
+.settings-form .add-budget-btn {
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 9px;
+    background: #f5a126;
+    color: #10251f;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.settings-form .add-budget-btn:hover {
+    background: #ffb13f;
+    transform: translateY(-1px);
+}
+
+#settings-message {
+    margin: 14px 0 0;
+    font-size: 13px;
+    color: #16805d;
+}
+
+/* Notifications */
+
+.settings-toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 18px 0 4px;
+    cursor: pointer;
+}
+
+.settings-toggle-row span {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.settings-toggle-row span strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color, #102c27);
+}
+
+.settings-toggle-row small {
+    color: var(--muted-color, #71817c);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Custom toggle switch */
+
+.settings-toggle-row input {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    width: 44px;
+    height: 25px;
+    min-width: 44px;
+    border: none;
+    border-radius: 20px;
+    background: #cbd5d1;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.settings-toggle-row input::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s;
+}
+
+.settings-toggle-row input:checked {
+    background: #ff8c1a;
+}
+
+.settings-toggle-row input:checked::before {
+    transform: translateX(19px);
+}
+
+.settings-toggle-row input:focus-visible {
+    outline: 3px solid rgba(255, 140, 26, 0.3);
+    outline-offset: 3px;
+}

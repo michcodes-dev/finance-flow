@@ -10,9 +10,7 @@ type Transaction = {
 
 const greetingEl = document.querySelector("#greeting") as HTMLElement;
 
-
-
-function updateGreeting() {
+function updateGreeting(): void {
     const hour = new Date().getHours();
 
     let greeting = "";
@@ -27,10 +25,14 @@ function updateGreeting() {
         greeting = "Good night";
     }
 
-    greetingEl.textContent = `${greeting}, User`;
+    const username =
+        localStorage.getItem("financeflow-display-name") || "User";
+
+    greetingEl.textContent = `${greeting}, ${username}`;
 }
 
 updateGreeting();
+
 
 let transactions: Transaction[] = [];
 
@@ -428,6 +430,25 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
     }
 });
 
+// Sync the saved display name with the profile
+function updateProfileDisplay(): void {
+    const username =
+        localStorage.getItem("financeflow-display-name") || "User";
+
+    const profileName = document.querySelector<HTMLElement>("#profile-name");
+    const profileAvatar = document.querySelector<HTMLElement>("#profile-avatar");
+    const dropdownName = document.querySelector<HTMLElement>("#dropdown-name");
+    const dropdownAvatar = document.querySelector<HTMLElement>("#dropdown-avatar");
+
+    const initial = username.trim().charAt(0).toUpperCase() || "U";
+
+    if (profileName) profileName.textContent = username;
+    if (profileAvatar) profileAvatar.textContent = initial;
+    if (dropdownName) dropdownName.textContent = username;
+    if (dropdownAvatar) dropdownAvatar.textContent = initial;
+}
+
+updateProfileDisplay();
 
 const notificationBtn = document.querySelector<HTMLButtonElement>(
     "#notification-btn"
@@ -507,6 +528,24 @@ function renderNotifications(): void {
     );
 
     if (!notificationList) return;
+
+    const notificationsEnabled =
+    localStorage.getItem("financeflow-budget-notifications") !== "false";
+
+if (!notificationsEnabled) {
+    notificationList.innerHTML = `
+        <div class="notification-empty">
+            <i class="fa-regular fa-bell"></i>
+            <p>Notifications are turned off.</p>
+            <span>Enable Budget Alerts in Settings to see alerts.</span>
+        </div>
+    `;
+
+    if (notificationCount) notificationCount.textContent = "0";
+    if (notificationDot) notificationDot.hidden = true;
+
+    return;
+}
 
     const budgets: DashboardBudget[] = JSON.parse(
         localStorage.getItem("financeflow-budgets") || "[]"
