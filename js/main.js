@@ -1,4 +1,3 @@
-"use strict";
 const greetingEl = document.querySelector("#greeting");
 function updateGreeting() {
     const hour = new Date().getHours();
@@ -286,3 +285,4 @@ profileDropdown?.addEventListener("click", (event) => {
 document.addEventListener("click", () => {
     profileDropdown?.classList.remove("show");
 });
+export {};

@@ -2319,3 +2319,561 @@ label {
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
 }
+
+/* =========================
+   BUDGETS PAGE
+========================= */
+
+.budget-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.budget-summary-card {
+    padding: 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.budget-summary-card > span {
+    display: block;
+    margin-bottom: 16px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.budget-summary-card > strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.budget-summary-card > small {
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.budgets-panel {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.add-budget-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #101010;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.add-budget-btn:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+}
+
+.budget-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    text-align: center;
+}
+
+.budget-empty > i {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+    background: var(--paper);
+    color: var(--accent-dark);
+    font-size: 1.3rem;
+}
+
+.budget-empty h3 {
+    margin-bottom: 8px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+}
+
+.budget-empty p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+/* Budgets summary layout fix */
+.budget-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: stretch;
+}
+
+.budget-summary-card {
+    min-width: 0;
+}
+
+/* Budget creation modal */
+
+.budget-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.budget-modal.show {
+    display: flex;
+}
+
+.budget-modal-content {
+    width: 100%;
+    max-width: 460px;
+    padding: 26px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
+}
+
+.budget-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.budget-modal-header h2 {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+}
+
+.budget-modal-header p {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.close-budget-modal {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.budget-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.budget-form-group label {
+    color: var(--ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.budget-form-group input,
+.budget-form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    outline: none;
+}
+
+.budget-form-group input:focus,
+.budget-form-group select:focus {
+    border-color: var(--accent);
+}
+
+.budget-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.budget-modal-actions button {
+    padding: 11px 16px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#cancel-budget {
+    background: var(--surface);
+    color: var(--ink);
+}
+
+.save-budget-btn {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #101010;
+}
+
+/* Individual budget cards */
+
+.budget-item {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.budget-item:first-child {
+    padding-top: 0;
+}
+
+.budget-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.budget-item-top,
+.budget-item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.budget-item-top {
+    margin-bottom: 16px;
+}
+
+.budget-item h3 {
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    text-transform: capitalize;
+}
+
+.budget-item p,
+.budget-item-bottom {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.budget-status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.budget-status.good {
+    background: var(--income-bg);
+    color: var(--income);
+}
+
+.budget-status.warning {
+    background: #fdf1d9;
+    color: var(--accent-dark);
+}
+
+.budget-status.over {
+    background: var(--expense-bg);
+    color: var(--expense);
+}
+
+.budget-progress-track {
+    height: 9px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--paper);
+}
+
+.budget-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.budget-status.over ~ .budget-progress-track .budget-progress-fill {
+    background: var(--expense);
+}
+
+.budget-item-bottom {
+    margin-top: 10px;
+}
+
+
+.budget-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.delete-budget-btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.delete-budget-btn:hover {
+    color: var(--expense);
+    background: var(--expense-bg);
+}
+
+
+/* FinanceFlow — Budget Delete Confirmation Modal */
+#delete-budget-modal .delete-confirmation {
+    width: calc(100% - 32px);
+    max-width: 420px;
+    margin: auto;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid #e3e9e6;
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+#delete-budget-modal .delete-icon {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #fff0ed;
+    color: #d44732;
+    font-size: 1.4rem;
+}
+
+#delete-budget-modal .delete-confirmation h2 {
+    margin: 0 0 12px;
+    color: #102d27;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+#delete-budget-modal .delete-confirmation p {
+    margin: 0 0 26px;
+    color: #71817c;
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+#delete-budget-modal .delete-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+#delete-budget-modal .delete-modal-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid #dce5e1;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #17352e;
+    font-family: var(--font-body, inherit);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#delete-budget-modal .delete-modal-actions #confirm-delete-budget {
+    border-color: #d44732;
+    background: #d44732;
+    color: #ffffff;
+}
+
+#delete-budget-modal .delete-modal-actions #confirm-delete-budget:hover {
+    background: #bd3826;
+    transform: translateY(-1px);
+}
+
+#delete-budget-modal .delete-modal-actions #cancel-delete-budget:hover {
+    background: #f4f7f5;
+}
+
+
+/* Budget Edit Button */
+.edit-budget-btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.edit-budget-btn:hover {
+    color: var(--accent-dark);
+    background: #fff4df;
+}
+
+
+/* Budget Alerts */
+.budget-alerts-section {
+    margin: 28px 0;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.budget-alerts-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.budget-alerts-heading h2 {
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+}
+
+.budget-alerts-heading p {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+#budget-alert-count {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: var(--paper);
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.budget-alert {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.budget-alert.warning {
+    background: #fffbf2;
+    border-color: #f3dfb2;
+}
+
+.budget-alert.danger {
+    background: #fff6f5;
+    border-color: #f0cfcb;
+}
+
+.budget-alert-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fff0d4;
+    color: #a76b00;
+    font-size: 1.05rem;
+}
+
+.budget-alert.danger .budget-alert-icon {
+    background: #fce5e2;
+    color: #c43d32;
+}
+
+.budget-alert-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.budget-alert-content h3 {
+    margin-bottom: 5px;
+    color: var(--ink);
+    font-size: 0.92rem;
+}
+
+.budget-alert-content p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.budget-alert-percentage {
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.budget-alert-empty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 10px;
+    background: #f0f8f2;
+    color: #218653;
+    font-size: 0.88rem;
+}
+
