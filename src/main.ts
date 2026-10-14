@@ -430,10 +430,13 @@ document.addEventListener("keydown", (event: KeyboardEvent) => {
     }
 });
 
-// Sync the saved display name with the profile
+
+ // Sync the saved display name and profile picture
 function updateProfileDisplay(): void {
     const username =
         localStorage.getItem("financeflow-display-name") || "User";
+
+    const photo = localStorage.getItem("financeflow-profile-photo");
 
     const profileName = document.querySelector<HTMLElement>("#profile-name");
     const profileAvatar = document.querySelector<HTMLElement>("#profile-avatar");
@@ -443,12 +446,32 @@ function updateProfileDisplay(): void {
     const initial = username.trim().charAt(0).toUpperCase() || "U";
 
     if (profileName) profileName.textContent = username;
-    if (profileAvatar) profileAvatar.textContent = initial;
     if (dropdownName) dropdownName.textContent = username;
-    if (dropdownAvatar) dropdownAvatar.textContent = initial;
+
+    [profileAvatar, dropdownAvatar].forEach((avatar) => {
+        if (!avatar) return;
+
+        avatar.replaceChildren();
+
+        if (photo) {
+            const image = document.createElement("img");
+
+            image.src = photo;
+            image.alt = "Profile picture";
+            image.style.width = "100%";
+            image.style.height = "100%";
+            image.style.objectFit = "cover";
+            image.style.borderRadius = "50%";
+
+            avatar.appendChild(image);
+        } else {
+            avatar.textContent = initial;
+        }
+    });
 }
 
 updateProfileDisplay();
+
 
 const notificationBtn = document.querySelector<HTMLButtonElement>(
     "#notification-btn"
