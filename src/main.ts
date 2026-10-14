@@ -180,6 +180,7 @@ transactionForm?.addEventListener("submit", (event) => {
     renderTransactions();
     updateSummary();
     renderSpendingOverview();
+    renderNotifications();
     
     transactionForm.reset();
     
@@ -364,6 +365,7 @@ window.addEventListener("pageshow", () => {
     updateSummaryPeriod();
     updateSummary();
     renderSpendingOverview();
+    renderNotifications();
 });
 
 periodFilter.addEventListener("change", () => {
@@ -372,19 +374,251 @@ periodFilter.addEventListener("change", () => {
     updateSummary();
 });
 
-const profileBtn = document.querySelector(".profile-btn");
-const profileDropdown = document.querySelector(".profile-dropdown");
 
-profileBtn?.addEventListener("click", (event) => {
-    event.stopPropagation();
-    profileDropdown?.classList.toggle("show");
-});
+const profileBtn = document.querySelector<HTMLButtonElement>(
+    "#profile-btn"
+);
 
-profileDropdown?.addEventListener("click", (event) => {
-    event.stopPropagation();
-});
+const profileDropdown = document.querySelector<HTMLDivElement>(
+    "#profile-dropdown"
+);
 
-document.addEventListener("click", () => {
+function closeProfileDropdown(): void {
     profileDropdown?.classList.remove("show");
+
+    if (profileDropdown) {
+        profileDropdown.hidden = true;
+    }
+
+    profileBtn?.setAttribute("aria-expanded", "false");
+}
+
+function toggleProfileDropdown(): void {
+    if (!profileBtn || !profileDropdown) return;
+
+    const isOpen = !profileDropdown.hidden;
+
+    profileDropdown.hidden = isOpen;
+    profileDropdown.classList.toggle("show", !isOpen);
+
+    profileBtn.setAttribute("aria-expanded", String(!isOpen));
+}
+
+profileBtn?.addEventListener("click", (event: MouseEvent) => {
+    event.stopPropagation();
+    toggleProfileDropdown();
 });
+
+document.addEventListener("click", (event: MouseEvent) => {
+    const target = event.target;
+
+    if (!(target instanceof Node)) return;
+
+    if (
+        !profileDropdown?.contains(target) &&
+        !profileBtn?.contains(target)
+    ) {
+        closeProfileDropdown();
+    }
+});
+
+document.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+        closeProfileDropdown();
+    }
+});
+
+
+const notificationBtn = document.querySelector<HTMLButtonElement>(
+    "#notification-btn"
+);
+
+const notificationDropdown = document.querySelector<HTMLDivElement>(
+    "#notification-dropdown"
+);
+
+function closeNotificationDropdown(): void {
+    if (notificationDropdown) {
+        notificationDropdown.hidden = true;
+    }
+
+    notificationBtn?.setAttribute("aria-expanded", "false");
+}
+
+function toggleNotificationDropdown(): void {
+    if (!notificationBtn || !notificationDropdown) return;
+
+    const isOpen = !notificationDropdown.hidden;
+
+    notificationDropdown.hidden = isOpen;
+    notificationBtn.setAttribute("aria-expanded", String(!isOpen));
+}
+
+notificationBtn?.addEventListener("click", (event: MouseEvent) => {
+    event.stopPropagation();
+
+    // Close the profile menu when opening notifications.
+    closeProfileDropdown();
+
+    toggleNotificationDropdown();
+});
+
+notificationDropdown?.addEventListener("click", (event: MouseEvent) => {
+    event.stopPropagation();
+});
+
+document.addEventListener("click", (event: MouseEvent) => {
+    const target = event.target;
+
+    if (!(target instanceof Node)) return;
+
+    if (
+        !notificationDropdown?.contains(target) &&
+        !notificationBtn?.contains(target)
+    ) {
+        closeNotificationDropdown();
+    }
+});
+
+document.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+        closeNotificationDropdown();
+    }
+});
+
+
+interface DashboardBudget {
+    id: string;
+    category: string;
+    limit: number;
+}
+
+function renderNotifications(): void {
+    const notificationList = document.querySelector<HTMLDivElement>(
+        "#notification-list"
+    );
+
+    const notificationCount = document.querySelector<HTMLSpanElement>(
+        "#notification-count"
+    );
+
+    const notificationDot = document.querySelector<HTMLSpanElement>(
+        ".notification-dot"
+    );
+
+    if (!notificationList) return;
+
+    const budgets: DashboardBudget[] = JSON.parse(
+        localStorage.getItem("financeflow-budgets") || "[]"
+    );
+
+    const savedTransactions = localStorage.getItem(
+        "financeflow-transactions"
+    );
+
+    const allTransactions: Transaction[] = savedTransactions
+        ? JSON.parse(savedTransactions)
+        : [];
+
+    const now = new Date();
+
+    const monthlyExpenses = allTransactions.filter((transaction) => {
+        const [year, month, day] = transaction.date.split("-").map(Number);
+        const date = new Date(year, month - 1, day);
+
+        return (
+            transaction.type === "expense" &&
+            date.getMonth() === now.getMonth() &&
+            date.getFullYear() === now.getFullYear()
+        );
+    });
+
+    const alerts = budgets
+        .map((budget) => {
+            const spent = monthlyExpenses
+                .filter(
+                    (transaction) =>
+                        transaction.category.toLowerCase() ===
+                        budget.category.toLowerCase()
+                )
+                .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+            const percentage =
+                budget.limit > 0
+                    ? (spent / budget.limit) * 100
+                    : 0;
+
+            if (percentage < 80) return null;
+
+            const isOverBudget = percentage >= 100;
+            const difference = Math.abs(budget.limit - spent);
+
+            return {
+                category: budget.category,
+                percentage,
+                isOverBudget,
+                message: isOverBudget
+                    ? `You have exceeded this budget by ${formatNaira(difference)}.`
+                    : `${formatNaira(budget.limit - spent)} remaining before you reach your limit.`,
+            };
+        })
+        .filter((alert) => alert !== null);
+
+    if (notificationCount) {
+        notificationCount.textContent = String(alerts.length);
+    }
+
+    if (notificationDot) {
+        notificationDot.hidden = alerts.length === 0;
+    }
+
+    if (alerts.length === 0) {
+        notificationList.innerHTML = `
+            <div class="notification-empty">
+                <i class="fa-regular fa-bell"></i>
+                <p>You're all caught up!</p>
+                <span>No budget alerts right now.</span>
+            </div>
+        `;
+        return;
+    }
+
+    notificationList.innerHTML = alerts
+        .map((alert) => {
+            const category =
+                alert.category.charAt(0).toUpperCase() +
+                alert.category.slice(1);
+
+            return `
+                <div class="notification-item ${
+                    alert.isOverBudget ? "danger" : "warning"
+                }">
+                    <div class="notification-item-icon">
+                        <i class="fa-solid ${
+                            alert.isOverBudget
+                                ? "fa-circle-exclamation"
+                                : "fa-triangle-exclamation"
+                        }"></i>
+                    </div>
+
+                    <div class="notification-item-content">
+                        <strong>${
+                            category
+                        } ${
+                            alert.isOverBudget
+                                ? "budget exceeded"
+                                : "budget almost reached"
+                        }</strong>
+
+                        <p>${alert.message}</p>
+
+                        <span>${alert.percentage.toFixed(0)}% of budget used</span>
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+}
+
+renderNotifications();
 
