@@ -1,38 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0e2a26">
 
     <title>FinanceFlow</title>
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-    <!-- Main CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
     <div class="app-layout">
-
-        <!-- =========================
-             SIDEBAR
-        ========================== -->
-
+        <!-- SIDEBAR -->
         <aside class="sidebar">
-
             <div class="sidebar-logo">
                 Finance<span>Flow</span>
             </div>
-
+            
             <nav class="sidebar-nav">
-
                 <a href="#" class="active">
                     <i class="fa-solid fa-house"></i>
                     <span>Dashboard</span>
@@ -52,11 +38,9 @@
                     <i class="fa-solid fa-wallet"></i>
                     <span>Budgets</span>
                 </a>
-
             </nav>
 
             <div class="sidebar-bottom">
-
                 <a href="settings.html">
                     <i class="fa-solid fa-gear"></i>
                     <span>Settings</span>
@@ -66,485 +50,267 @@
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
-
             </div>
-
         </aside>
 
-
-        <!-- =========================
-             MAIN CONTENT
-        ========================== -->
-
+        <!-- MAIN CONTENT -->
         <main class="main-content">
-
-
-            <!-- =========================
-                 WELCOME HEADER
-            ========================== -->
-
+            <!-- WELCOME HEADER -->
             <section class="welcome">
-
                 <div class="welcome-text">
-
-                    <p class="eyebrow">
-                        PERSONAL FINANCE
+                    <p class="eyebrow">PERSONAL FINANCE</p>
+                    <h1 id="greeting">Good afternoon, User</h1>
+                    <p>Here's what's happening with your money.
                     </p>
-
-                    <h1 id="greeting">
-                        Good afternoon, User
-                    </h1>
-
-                    <p>
-                        Here's what's happening with your money.
-                    </p>
-
                 </div>
-
-
+                
                 <div class="welcome-actions">
-
                     <!-- Notification + Profile -->
-
-                    <div class="top-actions">
-
+                     <div class="top-actions">
+                        <button
+                            class="notification-btn"
+                            id="notification-btn"
+                            type="button"
+                            aria-label="Notifications"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                        >
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
                         
-<button
-    class="notification-btn"
-    id="notification-btn"
-    type="button"
-    aria-label="Notifications"
-    aria-expanded="false"
-    aria-haspopup="true"
->
-    <i class="fa-regular fa-bell"></i>
-    <span class="notification-dot"></span>
-</button>
-
-<div
-    class="notification-dropdown"
-    id="notification-dropdown"
-    hidden
->
-    <div class="notification-header">
-        <strong>Notifications</strong>
-        <span id="notification-count">0</span>
-    </div>
-
-    <div class="notification-list" id="notification-list">
-        <div class="notification-empty">
-            <i class="fa-regular fa-bell"></i>
-            <p>You're all caught up!</p>
-            <span>No new notifications.</span>
-        </div>
-    </div>
-</div>
-
-
-
-                        <!-- Profile -->
-
-                        <div class="profile-wrapper">
-
-                            <button
-                                class="profile-btn"
-                                id="profile-btn"
-                                type="button"
-                                aria-expanded="false"
-                                aria-haspopup="true"
+                        <div
+                            class="notification-dropdown"
+                            id="notification-dropdown"
+                            hidden
+                        >
+                        
+                        <div class="notification-header">
+                            <strong>Notifications</strong>
+                            <span id="notification-count">0</span>
+                        </div>
+                        
+                        <div class="notification-list" id="notification-list">
+                            <div class="notification-empty">
+                                <i class="fa-regular fa-bell"></i>
+                                <p>You're all caught up!</p>
+                                <span>No new notifications.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile -->
+                     <div class="profile-wrapper">
+                        <button
+                            class="profile-btn"
+                            id="profile-btn"
+                            type="button"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                        >
+                            <span
+                                class="profile-avatar"
+                                id="profile-avatar"
                             >
-
+                                U
+                            </span>
+                            
+                            <span
+                                class="profile-name"
+                                id="profile-name"
+                            >
+                                User
+                            </span>
+                            
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        
+                        <!-- Profile Dropdown -->
+                        <div
+                            class="profile-dropdown"
+                            id="profile-dropdown"
+                            hidden
+                        >
+                            <div class="profile-dropdown-header">
                                 <span
                                     class="profile-avatar"
-                                    id="profile-avatar"
+                                    id="dropdown-avatar"
                                 >
                                     U
                                 </span>
-
-                                <span
-                                    class="profile-name"
-                                    id="profile-name"
-                                >
-                                    User
-                                </span>
-
-                                <i class="fa-solid fa-chevron-down"></i>
-
-                            </button>
-
-
-                            <!-- Profile Dropdown -->
-
-                            <div
-                                class="profile-dropdown"
-                                id="profile-dropdown"
-                                hidden
-                                >
-
-                                <div class="profile-dropdown-header">
-
-                                    <span
-                                        class="profile-avatar"
-                                        id="dropdown-avatar"
-                                    >
-                                        U
+                                
+                                <div>
+                                    <strong id="dropdown-name">
+                                        User
+                                    </strong>
+                                    
+                                    <span>
+                                        Personal account
                                     </span>
-
-                                    <div>
-
-                                        <strong id="dropdown-name">
-                                            User
-                                        </strong>
-
-                                        <span>
-                                            Personal account
-                                        </span>
-
-                                    </div>
-
                                 </div>
-
-
-                                <div class="profile-dropdown-divider"></div>
-
-
-                                <button
-    type="button"
-    onclick="window.location.href='profile.html'"
->
-    <i class="fa-solid fa-user"></i>
-    Profile
-</button>
-
-
-                                <button type="button" onclick="window.location.href='settings.html'">
-    <i class="fa-solid fa-gear"></i>
-    Settings
-</button>
-
-
-                                <div class="profile-dropdown-divider"></div>
-
-
-                                <button
-                                    type="button"
-                                    class="logout-btn"
-                                >
-
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-
-                                    Logout
-
-                                </button>
-
                             </div>
-
+                            
+                            <div class="profile-dropdown-divider"></div>
+                            <button
+                                type="button"
+                                onclick="window.location.href='profile.html'"
+                            >
+                                <i class="fa-solid fa-user"></i>
+                                Profile
+                            </button>
+                            
+                            <button type="button" onclick="window.location.href='settings.html'">
+                                <i class="fa-solid fa-gear"></i>
+                                Settings
+                            </button>
+                            
+                            <div class="profile-dropdown-divider"></div>
+                            <button
+                                type="button"
+                                class="logout-btn"
+                            >
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </button>
                         </div>
-
                     </div>
-
-
-                    <!-- Add Transaction -->
-
-                    <button
-                        class="add-transaction-btn"
-                        type="button"
-                    >
-
-                        <i class="fa-solid fa-plus"></i>
-
-                        Add Transaction
-
-                    </button>
-
                 </div>
-
+                <!-- Add Transaction -->
+                <button
+                    class="add-transaction-btn"
+                    type="button"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    Add Transaction
+                </button>
+            </div>
             </section>
-
-
-            <!-- =========================
-                 SUMMARY CARDS
-            ========================== -->
-
-            <section class="summary-cards">
-
-
+            
+            <!-- SUMMARY CARDS -->
+             <section class="summary-cards">
                 <!-- Balance -->
-
-                <div class="summary-card">
-
-                    <p>
-                        Total Balance
-                    </p>
-
-                    <h2 id="total-balance">
-                        ₦0.00
-                    </h2>
-
-                    <span>
-                        Available balance
-                    </span>
-
+                 <div class="summary-card">
+                    <p>Total Balance</p>
+                    <h2 id="total-balance">₦0.00</h2>
+                    <span>Available balance</span>
                 </div>
-
-
                 <!-- Income -->
-
                 <div class="summary-card">
-
-                    <p>
-                        Total Income
-                    </p>
-
-                    <h2 id="total-income">
-                        ₦0.00
-                    </h2>
-
-                    <span id="income-period">
-                        This month
-                    </span>
-
+                    <p>Total Income</p>
+                    <h2 id="total-income">₦0.00</h2>
+                    <span id="income-period">This month</span>
                 </div>
-
-
                 <!-- Expenses -->
-
-                <div class="summary-card">
-
-                    <p>
-                        Total Expenses
-                    </p>
-
-                    <h2 id="total-expenses">
-                        ₦0.00
-                    </h2>
-
-                    <span id="expense-period">
-                        This month
-                    </span>
-
+                 <div class="summary-card">
+                    <p>Total Expenses</p>
+                    <h2 id="total-expenses">₦0.00</h2>
+                    <span id="expense-period">This month</span>
                 </div>
-
             </section>
-
-
-            <!-- =========================
-                 DASHBOARD CONTENT
-            ========================== -->
-
+            
+            <!-- DASHBOARD CONTENT -->
             <section class="dashboard-grid">
-
-
-                <!-- =========================
-                     SPENDING OVERVIEW
-                ========================== -->
-
+                <!-- SPENDING OVERVIEW -->
                 <div class="dashboard-card spending-card">
-
                     <div class="card-header">
-
                         <div>
-
-                            <h2>
-                                Spending Overview
-                            </h2>
-
-                            <p>
-                                See where your money is going.
-                            </p>
-
+                            <h2>Spending Overview</h2>
+                            <p>See where your money is going.</p>
                         </div>
-
-
+                        
                         <select id="period-filter">
-
-                            <option value="month">
-                                This Month
-                            </option>
-
-                            <option value="week">
-                                This Week
-                            </option>
-
-                            <option value="year">
-                                This Year
-                            </option>
-
+                            <option value="month">This Month</option>
+                            <option value="week">This Week</option>
+                            <option value="year">This Year</option>
                         </select>
-
                     </div>
 
-
-                    <div
-                        id="spending-chart"
-                        class="spending-chart"
-                    ></div>
-
+                    <div id="spending-chart" class="spending-chart"></div>
                 </div>
-
-
-                <!-- =========================
-                     RECENT TRANSACTIONS
-                ========================== -->
-
+                
+                <!-- RECENT TRANSACTIONS -->
                 <div class="dashboard-card transactions-card">
-
                     <div class="card-header">
-
                         <div>
-
-                            <h2>
-                                Recent Transactions
-                            </h2>
-
-                            <p>
-                                Your latest activity
-                            </p>
-
+                            <h2>Recent Transactions</h2>
+                            <p>Your latest activity</p>
                         </div>
-
-
-                        <a href="transactions.html">
-                            View all
-                        </a>
-
+                        
+                        <a href="transactions.html">View all</a>
                     </div>
-
-
-                    <div
-                        id="recent-transactions"
-                        class="transaction-list"
-                    >
-
+                    
+                    <div id="recent-transactions" class="transaction-list">
                         <div class="empty-state">
-
-                            <p>
-                                No transactions yet.
-                            </p>
-
-                            <span>
-                                Add your first transaction to get started.
-                            </span>
-
+                            <p>No transactions yet.</p>
+                            <span>Add your first transaction to get started.</span>
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </main>
-
     </div>
-
-
-    <!-- =========================
-         ADD TRANSACTION MODAL
-    ========================== -->
-
-    <div
-        class="modal-overlay"
-        id="transaction-modal"
-    >
-
+    
+    <!-- ADD TRANSACTION MODAL -->
+    <div class="modal-overlay" id="transaction-modal">
         <div class="transaction-modal">
-
-
             <!-- Modal Header -->
-
             <div class="modal-header">
-
+                <button
+                class="modal-back"
+                id="back-modal"
+                type="button"
+                aria-label="Back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                
                 <div>
-
-                    <p class="eyebrow">
-                        TRANSACTION
-                    </p>
-
-                    <h2>
-                        Add Transaction
-                    </h2>
-
-                    <p>
-                        Record your income or expense.
-                    </p>
-
+                    <p class="eyebrow">TRANSACTION</p>
+                    <h2>Add Transaction</h2>
+                    <p>Record your income or expense.</p>
                 </div>
-
-
+                
                 <button
                     class="modal-close"
                     id="close-modal"
                     type="button"
                     aria-label="Close"
-                >
-
-                    <i class="fa-solid fa-xmark"></i>
-
+                    >
+                        <i class="fa-solid fa-xmark"></i>
                 </button>
-
             </div>
-
-
+            
             <!-- Transaction Form -->
-
-            <form id="transaction-form">
-
-
+             <form id="transaction-form">
                 <!-- Transaction Type -->
-
                 <div class="transaction-type">
-
-                    <label>
-                        Transaction Type
-                    </label>
-
+                    <p class="field-label">Transaction Type</p>
                     <div class="type-options">
-
                         <button
                             type="button"
                             class="type-btn active"
                             data-type="income"
                         >
-
                             <i class="fa-solid fa-arrow-down"></i>
-
                             Income
-
                         </button>
-
 
                         <button
                             type="button"
                             class="type-btn"
                             data-type="expense"
                         >
-
                             <i class="fa-solid fa-arrow-up"></i>
-
                             Expense
-
                         </button>
-
                     </div>
-
                 </div>
-
-
+                
                 <!-- Amount -->
-
-                <div class="form-group">
-
-                    <label for="amount">
-                        Amount
-                    </label>
-
+                 <div class="form-group">
+                    <label for="amount">Amount</label>
                     <div class="amount-input">
-
-                        <span>
-                            ₦
-                        </span>
-
+                        <span>₦</span>
                         <input
                             type="number"
                             id="amount"
@@ -553,104 +319,51 @@
                             step="0.01"
                             required
                         >
-
                     </div>
-
                 </div>
-
-
+                
                 <!-- Description -->
-
-                <div class="form-group">
-
-                    <label for="description">
-                        Description
-                    </label>
-
+                 <div class="form-group">
+                    <label for="description">Description</label>
                     <input
                         type="text"
                         id="description"
                         placeholder="e.g. Salary, Food, Transport"
                         required
                     >
-
                 </div>
-
-
+                
                 <!-- Category + Date -->
-
-                <div class="form-row">
-
-
+                 <div class="form-row">
                     <div class="form-group">
-
-                        <label for="category">
-                            Category
-                        </label>
-
+                        <label for="category">Category</label>
                         <select
                             id="category"
                             required
                         >
-
-                            <option value="">
-                                Select category
-                            </option>
-
-                            <option value="salary">
-                                Salary
-                            </option>
-
-                            <option value="food">
-                                Food
-                            </option>
-
-                            <option value="transport">
-                                Transport
-                            </option>
-
-                            <option value="shopping">
-                                Shopping
-                            </option>
-
-                            <option value="bills">
-                                Bills
-                            </option>
-
-                            <option value="entertainment">
-                                Entertainment
-                            </option>
-
-                            <option value="other">
-                                Other
-                            </option>
-
+                            <option value="">Select category</option>
+                            <option value="salary">Salary</option>
+                            <option value="food">Food</option>
+                            <option value="transport">Transport</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="bills">Bills</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="other">Other</option>
                         </select>
-
                     </div>
-
-
+                    
                     <div class="form-group">
-
-                        <label for="date">
-                            Date
-                        </label>
-
+                        <label for="date">Date</label>
                         <input
                             type="date"
                             id="date"
                             required
                         >
-
                     </div>
-
                 </div>
-
-
+                
                 <!-- Modal Buttons -->
-
                 <div class="modal-actions">
-
                     <button
                         type="button"
                         class="cancel-btn"
@@ -659,34 +372,49 @@
                         Cancel
                     </button>
 
-
                     <button
                         type="submit"
                         class="save-transaction-btn"
                     >
-
                         <i class="fa-solid fa-plus"></i>
-
                         Save Transaction
-
                     </button>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
+    
+    <!-- Mobile Bottom Navigation -->
+     <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="bottom-nav-item active" aria-current="page">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="transactions.html" class="bottom-nav-item">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <span>Transactions</span>
+        </a>
+        
+        <button
+            type="button"
+            class="bottom-nav-add"
+            aria-label="Add transaction"
+        >
+            <i class="fa-solid fa-plus"></i>
+        </button>
 
+        <a href="analytics.html" class="bottom-nav-item">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Analytics</span>
+        </a>
 
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+    
     <!-- JavaScript -->
-
-    <script
-        type="module"
-        src="./js/main.js"
-    ></script>
-
+    <script type="module" src="./js/main.js"></script>
 </body>
-
 </html>

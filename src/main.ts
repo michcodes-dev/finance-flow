@@ -46,10 +46,19 @@ function loadTransactions() {
 
 loadTransactions();
 
+function todayString(): string {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${now.getFullYear()}-${month}-${day}`;
+}
+
 const addTransactionBtn = document.querySelector(".add-transaction-btn");
 const transactionModal = document.querySelector("#transaction-modal");
 
 addTransactionBtn?.addEventListener("click", () => {
+    dateInput.value = todayString();
     transactionModal?.classList.add("show");
 })
 
@@ -683,4 +692,16 @@ if (!notificationsEnabled) {
 }
 
 renderNotifications();
+
+const bottomAddBtn = document.querySelector(".bottom-nav-add");
+
+bottomAddBtn?.addEventListener("click", () => {
+    (document.querySelector(".add-transaction-btn") as HTMLElement | null)?.click();
+});
+
+const backModalBtn = document.querySelector("#back-modal");
+
+backModalBtn?.addEventListener("click", () => {
+    transactionModal?.classList.remove("show");
+});
 

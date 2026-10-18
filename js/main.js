@@ -26,9 +26,16 @@ function loadTransactions() {
         : [];
 }
 loadTransactions();
+function todayString() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${now.getFullYear()}-${month}-${day}`;
+}
 const addTransactionBtn = document.querySelector(".add-transaction-btn");
 const transactionModal = document.querySelector("#transaction-modal");
 addTransactionBtn?.addEventListener("click", () => {
+    dateInput.value = todayString();
     transactionModal?.classList.add("show");
 });
 const closeModalBtn = document.querySelector("#close-modal");
@@ -482,4 +489,12 @@ function renderNotifications() {
         .join("");
 }
 renderNotifications();
+const bottomAddBtn = document.querySelector(".bottom-nav-add");
+bottomAddBtn?.addEventListener("click", () => {
+    document.querySelector(".add-transaction-btn")?.click();
+});
+const backModalBtn = document.querySelector("#back-modal");
+backModalBtn?.addEventListener("click", () => {
+    transactionModal?.classList.remove("show");
+});
 export {};

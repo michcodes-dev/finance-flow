@@ -55,7 +55,6 @@ const currentMonthTransactions = (): Transaction[] => {
     });
 };
 
-
 function renderSummary(period: "month" | "all"): void {
     const items = period === "all"
         ? transactions

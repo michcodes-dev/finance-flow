@@ -98,68 +98,65 @@
                 Edit settings
             </a>
         </section>
-
         
-<div class="profile-modal" id="profile-modal" hidden>
-    <div class="profile-modal-content">
-        <div class="profile-modal-header">
-            <div>
-                <h2>Edit Profile</h2>
-                <p>Update your personal information.</p>
-            </div>
-
-            <button type="button" id="close-profile-modal" aria-label="Close">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-
-        <form id="edit-profile-form">
-            <div class="profile-photo-editor">
-                <div class="profile-large-avatar" id="profile-preview-avatar">
-                    U
-                </div>
-
-                <div>
-                    <label for="profile-photo">Profile picture</label>
-                    <input
-                        type="file"
-                        id="profile-photo"
-                        accept="image/png,image/jpeg,image/webp"
-                    >
-                    <button type="button" id="remove-profile-photo">
-                        Remove picture
+        <div class="profile-modal" id="profile-modal" hidden>
+            <div class="profile-modal-content">
+                <div class="profile-modal-header">
+                    <div>
+                        <h2>Edit Profile</h2>
+                        <p>Update your personal information.</p>
+                    </div>
+                    
+                    <button type="button" id="close-profile-modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
+                
+                <form id="edit-profile-form">
+                    <div class="profile-photo-editor">
+                        <div class="profile-large-avatar" id="profile-preview-avatar">
+                            U
+                        </div>
+                        
+                        <div>
+                            <label for="profile-photo">Profile picture</label>
+                            <input
+                                type="file"
+                                id="profile-photo"
+                                accept="image/png,image/jpeg,image/webp"
+                                >
+                                <button type="button" id="remove-profile-photo">
+                                    Remove picture
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-field">
+                            <label for="edit-display-name">Display name</label>
+                            <input
+                                type="text"
+                                id="edit-display-name"
+                                maxlength="40"
+                                required
+                            >
+                        </div>
+                        
+                        <p id="profile-form-message" role="status"></p>
+                        
+                        <div class="profile-modal-actions">
+                            <button type="button" id="cancel-profile-edit">
+                                Cancel
+                            </button>
+                            
+                            <button type="submit" class="add-budget-btn">
+                                <i class="fa-solid fa-check"></i>
+                                Save Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div class="settings-field">
-                <label for="edit-display-name">Display name</label>
-                <input
-                    type="text"
-                    id="edit-display-name"
-                    maxlength="40"
-                    required
-                >
-            </div>
-
-            <p id="profile-form-message" role="status"></p>
-
-            <div class="profile-modal-actions">
-                <button type="button" id="cancel-profile-edit">
-                    Cancel
-                </button>
-
-                <button type="submit" class="add-budget-btn">
-                    <i class="fa-solid fa-check"></i>
-                    Save Profile
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-    </main>
-
-    <script type="module" src="js/profile.js"></script>
+        </main>
+        <script type="module" src="js/profile.js"></script>
 </body>
 </html>

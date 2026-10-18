@@ -965,6 +965,10 @@ button {
     font-size: 0.8rem;
 }
 
+.transaction-item .tx-meta {
+    text-transform: capitalize;
+}
+
 .transaction-item .tx-amount {
     flex-shrink: 0;
 
@@ -3406,3 +3410,506 @@ label {
     display: none;
 }
 
+.modal-back {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    /* ---------- Page ---------- */
+
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 20px 16px 110px;
+    }
+
+
+    /* ---------- Bottom navigation ---------- */
+
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
+        padding: 10px 8px;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom));
+
+        background: var(--surface);
+        border-top: 1px solid var(--line);
+        box-shadow: 0 -4px 18px rgba(14, 42, 38, 0.08);
+    }
+
+    .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        min-width: 0;
+        min-height: 44px;
+
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .bottom-nav-item i {
+        font-size: 18px;
+    }
+
+    .bottom-nav-item.active {
+        color: var(--accent-dark);
+    }
+
+    .bottom-nav-add {
+        justify-self: center;
+        display: grid;
+        place-items: center;
+        width: 50px;
+        height: 50px;
+        margin-top: -22px;
+
+        border: none;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--ink);
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(14, 42, 38, 0.2);
+    }
+    
+    /* ---------- Mobile green header ---------- */
+    
+    .welcome {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin: -20px -16px 0;
+        padding: calc(32px + env(safe-area-inset-top)) 16px 104px;
+        border-radius: 0 0 24px 24px;
+        background: var(--ink);
+    }
+    
+    .welcome-text {
+        flex: 1;
+        min-width: 0;
+        padding-top: 0;
+    }
+    
+    .welcome .eyebrow,
+    .welcome-text p:last-child {
+        display: none;
+    }
+    
+    .welcome h1 {
+        max-width: 100%;
+        margin: 0;
+        color: #fff;
+        font-size: 28px;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+    
+    .welcome-actions {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: flex-start;
+        justify-content: flex-end;
+        width: auto;
+        margin-left: auto;
+        gap: 0;
+    }
+    
+    .welcome-actions .add-transaction-btn,
+    .profile-wrapper {
+        display: none;
+    }
+    
+    .top-actions {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+.notification-btn {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+.notification-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.notification-dot {
+    border-color: var(--ink);
+}
+
+/* Keep the notification dropdown attached to the bell */
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 120;
+    width: min(290px, calc(100vw - 32px));
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* ---------- Mobile summary cards ---------- */
+.summary-cards {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+
+    margin-top: -76px;
+    margin-bottom: 18px;
+}
+
+.summary-card {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.summary-card:first-child {
+    grid-column: 1 / -1;
+    padding: 18px;
+    background: var(--ink-soft);
+    border-color: rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+}
+
+.summary-card:first-child p,
+.summary-card:first-child h2,
+.summary-card:first-child span {
+    color: #fff;
+}
+
+.summary-card:nth-child(2) p,
+.summary-card:nth-child(3) p {
+    font-size: 0.75rem;
+}
+
+.summary-card:nth-child(2) h2,
+.summary-card:nth-child(3) h2 {
+    font-size: clamp(0.85rem, 3.5vw, 1.05rem);
+    overflow-wrap: anywhere;
+}
+
+
+    /* ---------- Dashboard cards ---------- */
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .dashboard-card {
+        padding: 18px;
+    }
+
+    .spending-card {
+        min-height: 0;
+    }
+
+
+    /* ---------- Spending chart (bars) ---------- */
+
+    .spending-scale {
+        width: 48px;
+    }
+
+    .spending-bars {
+        gap: 8px;
+        padding: 0 6px;
+    }
+
+    .spending-column {
+        width: auto;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .spending-bar-wrapper {
+        width: 70%;
+        max-width: 40px;
+    }
+
+    .spending-category,
+    .spending-amount {
+        font-size: 0.66rem;
+    }
+
+
+    /* ---------- Donut chart: chart left, legend right ---------- */
+
+    .spending-card .donut-layout {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .spending-card .donut-chart {
+        width: 130px;
+        height: 130px;
+    }
+
+    .spending-card .donut-hole {
+        width: 88px;
+        height: 88px;
+    }
+
+    .spending-card .donut-hole strong {
+        font-size: 0.85rem;
+    }
+
+    .spending-card .donut-legend {
+        flex: 1;
+        min-width: 0;
+        gap: 9px;
+    }
+
+        .spending-card .card-header p {
+        display: none;
+    }
+
+    .spending-card .card-header {
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    #period-filter {
+        padding: 6px 28px 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .spending-chart {
+        height: 240px;
+        margin-top: 12px;
+    }
+
+    .notification-btn {
+        border: 0;
+    }
+
+        /* ---------- Add Transaction: full-screen page ---------- */
+
+        #transaction-modal .modal-back {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--paper);
+        color: var(--ink);
+    }
+
+    #transaction-modal .modal-header > div {
+        flex: 1;
+        text-align: center;
+    }
+    
+    #transaction-modal {
+        padding: 0;
+        align-items: stretch;
+        background: var(--paper);
+        backdrop-filter: none;
+    }
+
+    #transaction-modal .transaction-modal {
+        display: flex;
+        flex-direction: column;
+        max-width: none;
+        max-height: none;
+        height: 100%;
+        padding: 0;
+        overflow: hidden;
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+        animation: none;
+    }
+
+    /* Top bar */
+    #transaction-modal .modal-header {
+        flex-shrink: 0;
+        align-items: center;
+        margin: 0;
+        padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+    }
+
+    #transaction-modal .modal-header p {
+        display: none;
+    }
+
+    #transaction-modal .modal-header h2 {
+        font-size: 1.1rem;
+    }
+
+    /* Scrolling form area */
+    #transaction-modal #transaction-form {
+        flex: 1;
+        gap: 20px;
+        padding: 20px 16px 0;
+        overflow-y: auto;
+    }
+
+    #transaction-modal label {
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* Income / Expense switch */
+    #transaction-modal .type-options {
+        gap: 4px;
+        padding: 4px;
+        border-radius: 14px;
+        background: var(--line);
+    }
+
+    #transaction-modal .type-btn {
+        padding: 12px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+    }
+
+    #transaction-modal .type-btn.active[data-type="income"] {
+        background: var(--surface);
+        color: var(--income);
+        box-shadow: 0 2px 8px rgba(14, 42, 38, 0.1);
+    }
+
+    #transaction-modal .type-btn.active[data-type="expense"] {
+        background: var(--surface);
+        color: var(--expense);
+        box-shadow: 0 2px 8px rgba(14, 42, 38, 0.1);
+    }
+
+        /* Fields */
+    #transaction-modal .form-group input,
+    #transaction-modal .form-group select,
+    #transaction-modal .amount-input {
+        width: 100%;
+        min-height: 52px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background-color: var(--surface);
+        font-size: 16px;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* Category dropdown: bring the arrow back */
+    #transaction-modal .form-group select {
+        padding-right: 44px;
+        color: var(--ink);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2364756f' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+    }
+
+    /* Date box */
+    #transaction-modal input[type="date"] {
+        display: block;
+        color: var(--ink);
+        text-align: left;
+        line-height: 52px;
+    }
+
+    #transaction-modal input[type="date"]::-webkit-date-and-time-value {
+        text-align: left;
+    }
+
+    #transaction-modal input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    /* Highlight the box you are typing in */
+    #transaction-modal .form-group input:focus,
+    #transaction-modal .form-group select:focus,
+    #transaction-modal .amount-input:focus-within {
+        outline: none;
+        border-color: var(--income);
+        box-shadow: 0 0 0 3px var(--income-bg);
+    }
+
+    #transaction-modal .amount-input {
+        min-height: 64px;
+    }
+
+    #transaction-modal .amount-input span {
+        font-size: 1.4rem;
+        color: var(--ink);
+    }
+
+    #transaction-modal .amount-input input {
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        font-size: 1.6rem;
+    }
+
+    #transaction-modal .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Buttons pinned to the bottom */
+    #transaction-modal .modal-actions {
+        position: sticky;
+        bottom: 0;
+        flex-direction: column-reverse;
+        gap: 10px;
+        margin: auto -16px 0;
+        padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+        background: var(--surface);
+        border-top: 1px solid var(--line);
+    }
+
+    #transaction-modal .save-transaction-btn,
+    #transaction-modal .cancel-btn {
+        width: 100%;
+        min-height: 50px;
+        border-radius: 12px;
+    }
+
+    #transaction-modal .cancel-btn {
+        border: 1px solid var(--line);
+    }
+}
