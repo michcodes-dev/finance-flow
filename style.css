@@ -1438,6 +1438,10 @@ label {
     font-size: 0.9rem;
 }
 
+.transaction-category {
+    text-transform: capitalize;
+}
+
 .transaction-amount {
     font-weight: 700;
     text-align: right;
@@ -3414,6 +3418,15 @@ label {
     display: none;
 }
 
+.page-header-icon,
+.page-header-bell {
+    display: none;
+}
+
+.page-header-bell-wrap {
+    display: none;
+}
+
 @media (max-width: 768px) {
 
     /* ---------- Page ---------- */
@@ -3548,82 +3561,80 @@ label {
         display: flex;
         align-items: center;
     }
-
-.notification-btn {
-    display: grid;
-    place-items: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 50%;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-}
-
-.notification-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.notification-dot {
-    border-color: var(--ink);
-}
-
-/* Keep the notification dropdown attached to the bell */
-.notification-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    z-index: 120;
-    width: min(290px, calc(100vw - 32px));
-    max-height: 60vh;
-    overflow-y: auto;
-}
-
-/* ---------- Mobile summary cards ---------- */
-.summary-cards {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-
-    margin-top: -76px;
-    margin-bottom: 18px;
-}
-
-.summary-card {
-    min-width: 0;
-    padding: 12px;
-    border-radius: 14px;
-    box-sizing: border-box;
-}
-
-.summary-card:first-child {
-    grid-column: 1 / -1;
-    padding: 18px;
-    background: var(--ink-soft);
-    border-color: rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
-}
-
-.summary-card:first-child p,
-.summary-card:first-child h2,
-.summary-card:first-child span {
-    color: #fff;
-}
-
-.summary-card:nth-child(2) p,
-.summary-card:nth-child(3) p {
-    font-size: 0.75rem;
-}
-
-.summary-card:nth-child(2) h2,
-.summary-card:nth-child(3) h2 {
-    font-size: clamp(0.85rem, 3.5vw, 1.05rem);
-    overflow-wrap: anywhere;
-}
-
+    
+    .notification-btn {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    .notification-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .notification-dot {
+        border-color: var(--ink);
+    }
+    
+    /* Keep the notification dropdown attached to the bell */
+    .notification-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        z-index: 120;
+        width: min(290px, calc(100vw - 32px));
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    /* ---------- Mobile summary cards ---------- */
+    .summary-cards {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: -76px;
+        margin-bottom: 18px;
+    }
+    
+    .summary-card {
+        min-width: 0;
+        padding: 12px;
+        border-radius: 14px;
+        box-sizing: border-box;
+    }
+    
+    .summary-card:first-child {
+        grid-column: 1 / -1;
+        padding: 18px;
+        background: var(--ink-soft);
+        border-color: rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+    }
+    
+    .summary-card:first-child p,
+    .summary-card:first-child h2,
+    .summary-card:first-child span {
+        color: #fff;
+    }
+    
+    .summary-card:nth-child(2) p,
+    .summary-card:nth-child(3) p {
+        font-size: 0.75rem;
+    }
+    
+    .summary-card:nth-child(2) h2,
+    .summary-card:nth-child(3) h2 {
+        font-size: clamp(0.85rem, 3.5vw, 1.05rem);
+        overflow-wrap: anywhere;
+    }
 
     /* ---------- Dashboard cards ---------- */
 
@@ -3911,5 +3922,272 @@ label {
 
     #transaction-modal .cancel-btn {
         border: 1px solid var(--line);
+    }
+}
+
+@media (max-width: 768px) {
+
+        /* ---------- Green header ---------- */
+
+    .page-header {
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: -20px -16px 16px;
+        padding: calc(40px + env(safe-area-inset-top)) 16px 22px;
+        border-radius: 0 0 24px 24px;
+        background: var(--ink);
+        text-align: left;
+    }
+
+    .page-header > div:first-child {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .page-header .eyebrow,
+    .page-header .add-transaction-btn,
+    .page-header-icon {
+        display: none;
+    }
+
+    .page-header h1 {
+        margin: 0;
+        color: #fff;
+        font-size: 1.35rem;
+    }
+
+    .page-header > div > p:last-child {
+        margin-top: 2px;
+        color: #9fb8b0;
+        font-size: 0.82rem;
+    }
+
+    .page-header-bell-wrap {
+        position: relative;
+        display: block;
+        flex-shrink: 0 0 auto;
+    }
+
+    .page-header-bell {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .page-header-bell .notification-dot {
+        border-color: var(--ink);
+    }
+
+        /* ---------- Summary: two columns, total is a slim row ---------- */
+
+    .transaction-summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .transaction-summary .summary-card {
+        min-width: 0;
+        min-height: 0;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .transaction-summary .summary-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+    }
+
+    .transaction-summary .summary-label {
+        margin-bottom: 2px;
+        font-size: 0.72rem;
+    }
+
+    .transaction-summary .summary-card strong {
+        font-size: 1.05rem;
+        overflow-wrap: anywhere;
+    }
+
+    /* Total Transactions: one slim row across the top */
+    .transaction-summary .summary-card:first-child {
+        grid-column: 1 / -1;
+        padding: 10px 14px;
+        background: var(--surface);
+        border-color: var(--line);
+        border-radius: 12px;
+    }
+
+    .transaction-summary .summary-card:first-child > div:last-child {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .transaction-summary .summary-card:first-child .summary-label {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+    }
+
+    .transaction-summary .summary-card:first-child strong {
+        font-size: 1rem;
+    }
+
+
+    /* ---------- Search and filters ---------- */
+
+    .transactions-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .search-box {
+        max-width: none;
+    }
+
+    .transaction-filters {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .transaction-filters select {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+    }
+
+        /* ---------- Transaction rows ---------- */
+
+    .transactions-table-header,
+    .transaction-category {
+        display: none;
+    }
+
+    .transaction-row {
+        grid-template-columns: 42px minmax(0, 1fr) auto;
+        grid-template-areas:
+            "icon title amount"
+            "icon date actions";
+        column-gap: 12px;
+        row-gap: 1px;
+        align-items: center;
+        padding: 14px 16px;
+    }
+
+    /* Let the icon, title and date sit directly in the row grid */
+    .transaction-description,
+    .transaction-description .tx-info {
+        display: contents;
+    }
+
+    .transaction-description .tx-icon {
+        grid-area: icon;
+    }
+
+    .transaction-description .tx-title {
+        grid-area: title;
+        align-self: end;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .transaction-description .tx-meta {
+        display: none;
+    }
+
+    .transaction-date {
+        grid-area: date;
+        align-self: start;
+        padding-left: 0;
+        font-size: 0.8rem;
+    }
+
+    .transaction-amount {
+        grid-area: amount;
+        align-self: end;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+
+    .transaction-actions {
+        grid-area: actions;
+        align-self: start;
+    }
+
+    .transaction-actions button {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+        /* ---------- Delete popup ---------- */
+
+    #delete-modal {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    #delete-modal .delete-modal {
+        width: 100%;
+        padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+        border: 0;
+        border-radius: 22px 22px 0 0;
+        transform: none;
+    }
+
+    #delete-modal .delete-modal-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    #delete-modal .delete-cancel-btn,
+    #delete-modal .delete-confirm-btn {
+        width: 100%;
+        height: 50px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+
+        .page-header-bell-wrap {
+        position: relative;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .page-header-bell {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .page-header-bell .notification-dot {
+        border-color: var(--ink);
     }
 }

@@ -220,34 +220,17 @@ const addTransactionBtn = document.querySelector(".add-transaction-btn");
 const transactionModal = document.querySelector("#transaction-modal");
 const closeModalBtn = document.querySelector("#close-modal");
 const cancelModalBtn = document.querySelector("#cancel-modal");
+const bottomAddBtn = document.querySelector(".bottom-nav-add");
+const backModalBtn = document.querySelector("#back-modal");
 
-addTransactionBtn?.addEventListener("click", () => {
-    editingTransactionId = null;
-    selectedType = "income";
+addTransactionBtn?.addEventListener("click", openTransactionModal);
 
-    transactionForm.reset();
+closeModalBtn?.addEventListener("click", closeTransactionModal);
+cancelModalBtn?.addEventListener("click", closeTransactionModal);
 
-    typeButtons.forEach((button) => {
-        button.classList.toggle(
-            "active",
-            (button as HTMLElement).dataset.type === "income"
-        );
-    });
+backModalBtn?.addEventListener("click", closeTransactionModal);
+bottomAddBtn?.addEventListener("click", openTransactionModal);
 
-    modalTitle.textContent = "Add Transaction";
-    modalDescription.textContent = "Record your income or expense.";
-    saveTransactionBtn.textContent = "Save Transaction";
-
-    transactionModal?.classList.add("show");
-});
-
-closeModalBtn?.addEventListener("click", () => {
-    transactionModal?.classList.remove("show");
-});
-
-cancelModalBtn?.addEventListener("click", () => {
-    transactionModal?.classList.remove("show");
-});
 
 let selectedType: "income" | "expense" = "income";
 let editingTransactionId: string | null = null;
@@ -274,6 +257,34 @@ const dateInput = document.querySelector("#date") as HTMLInputElement;
 const modalTitle = document.querySelector("#modal-title") as HTMLElement;
 const modalDescription = document.querySelector("#modal-description") as HTMLElement;
 const saveTransactionBtn = document.querySelector("#save-transaction-btn span") as HTMLElement;
+
+
+
+
+function openTransactionModal() {
+    editingTransactionId = null;
+    selectedType = "income";
+
+    transactionForm.reset();
+
+    typeButtons.forEach((button) => {
+        button.classList.toggle(
+            "active",
+            (button as HTMLElement).dataset.type === "income"
+        );
+    });
+
+    modalTitle.textContent = "Add Transaction";
+    modalDescription.textContent = "Record your income or expense.";
+    saveTransactionBtn.textContent = "Save Transaction";
+
+    transactionModal?.classList.add("show");
+}
+
+function closeTransactionModal() {
+    transactionModal?.classList.remove("show");
+}
+
 
 transactionForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -417,12 +428,153 @@ confirmDeleteBtn?.addEventListener("click", () => {
         JSON.stringify(transactions)
     );
 
-    updateTransactionSummary();
-
     pendingDeleteId = null;
-
+    
     deleteModal?.classList.remove("show");
-
+    
     updateTransactionSummary();
     applyFilters();
 });
+
+/* ---------- Notifications ---------- */
+
+interface Budget {
+    category: string;
+    limit: number;
+}
+
+function formatNaira(value: number): string {
+    return value.toLocaleString("en-NG", {
+        style: "currency",
+        currency: "NGN",
+    });
+}
+
+const notificationBtn = document.querySelector<HTMLButtonElement>("#notification-btn");
+const notificationDropdown = document.querySelector<HTMLDivElement>("#notification-dropdown");
+const notificationList = document.querySelector<HTMLDivElement>("#notification-list");
+const notificationCount = document.querySelector<HTMLElement>("#notification-count");
+const notificationDot = document.querySelector<HTMLElement>(".notification-dot");
+
+function closeNotifications() {
+    if (notificationDropdown) notificationDropdown.hidden = true;
+    notificationBtn?.setAttribute("aria-expanded", "false");
+}
+
+function renderNotifications() {
+    if (!notificationList) return;
+
+    const enabled =
+        localStorage.getItem("financeflow-budget-notifications") !== "false";
+
+    if (!enabled) {
+        notificationList.innerHTML = `
+            <div class="notification-empty">
+                <i class="fa-regular fa-bell"></i>
+                <p>Notifications are turned off.</p>
+                <span>Enable Budget Alerts in Settings to see alerts.</span>
+            </div>
+        `;
+        if (notificationCount) notificationCount.textContent = "0";
+        if (notificationDot) notificationDot.hidden = true;
+        return;
+    }
+
+    const budgets: Budget[] = JSON.parse(
+        localStorage.getItem("financeflow-budgets") || "[]"
+    );
+
+    const now = new Date();
+
+    const monthlyExpenses = transactions.filter((t) => {
+        const [year, month, day] = t.date.split("-").map(Number);
+        const date = new Date(year, month - 1, day);
+
+        return (
+            t.type === "expense" &&
+            date.getMonth() === now.getMonth() &&
+            date.getFullYear() === now.getFullYear()
+        );
+    });
+
+    const alerts = budgets.flatMap((budget) => {
+        const spent = monthlyExpenses
+            .filter((t) => t.category.toLowerCase() === budget.category.toLowerCase())
+            .reduce((sum, t) => sum + t.amount, 0);
+
+        const percentage = budget.limit > 0 ? (spent / budget.limit) * 100 : 0;
+
+        if (percentage < 80) return [];
+
+        const isOver = percentage >= 100;
+
+        return [{
+            category: budget.category,
+            percentage,
+            isOver,
+            message: isOver
+                ? `You have exceeded this budget by ${formatNaira(spent - budget.limit)}.`
+                : `${formatNaira(budget.limit - spent)} remaining before you reach your limit.`,
+        }];
+    });
+
+    if (notificationCount) notificationCount.textContent = String(alerts.length);
+    if (notificationDot) notificationDot.hidden = alerts.length === 0;
+
+    if (alerts.length === 0) {
+        notificationList.innerHTML = `
+            <div class="notification-empty">
+                <i class="fa-regular fa-bell"></i>
+                <p>You're all caught up!</p>
+                <span>No budget alerts right now.</span>
+            </div>
+        `;
+        return;
+    }
+
+    notificationList.innerHTML = alerts
+        .map((alert) => {
+            const name =
+                alert.category.charAt(0).toUpperCase() + alert.category.slice(1);
+
+            return `
+                <div class="notification-item ${alert.isOver ? "danger" : "warning"}">
+                    <div class="notification-item-icon">
+                        <i class="fa-solid ${alert.isOver ? "fa-circle-exclamation" : "fa-triangle-exclamation"}"></i>
+                    </div>
+
+                    <div class="notification-item-content">
+                        <strong>${name} ${alert.isOver ? "budget exceeded" : "budget almost reached"}</strong>
+                        <p>${alert.message}</p>
+                        <span>${alert.percentage.toFixed(0)}% of budget used</span>
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+}
+
+notificationBtn?.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if (!notificationDropdown) return;
+
+    if (!notificationDropdown.hidden) {
+        closeNotifications();
+        return;
+    }
+
+    renderNotifications();
+    notificationDropdown.hidden = false;
+    notificationBtn?.setAttribute("aria-expanded", "true");
+});
+
+notificationDropdown?.addEventListener("click", (event) => event.stopPropagation());
+
+document.addEventListener("click", closeNotifications);
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeNotifications();
+});
+
+renderNotifications();
