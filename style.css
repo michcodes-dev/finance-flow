@@ -3435,6 +3435,10 @@ label {
     display: none;
 }
 
+.mobile-bottom-nav {
+    display: none;
+}
+
 @media (max-width: 768px) {
 
     /* ---------- Page ---------- */
@@ -4644,6 +4648,248 @@ label {
     #delete-budget-modal .delete-modal-actions button {
         width: 100%;
         min-height: 50px;
+        white-space: nowrap;
+    }
+}
+
+/* ---------- Settings page ---------- */
+
+.settings-section-title {
+    margin: 24px 4px 10px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.settings-card {
+    max-width: 640px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.settings-profile,
+.settings-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px 18px;
+    background: transparent;
+    text-align: left;
+}
+
+.settings-row + .settings-row {
+    border-top: 1px solid var(--line);
+}
+
+button.settings-row:hover,
+a.settings-row:hover,
+label.settings-row:hover,
+.settings-profile:hover {
+    background: var(--paper);
+}
+
+label.settings-row {
+    cursor: pointer;
+}
+
+.settings-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.settings-profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.settings-profile-info strong,
+.settings-row-text strong {
+    display: block;
+    color: var(--ink);
+    font-size: 0.95rem;
+}
+
+.settings-profile-info small,
+.settings-row-text small {
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.settings-row-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.settings-row-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.settings-row-value {
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+.settings-row-arrow {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.settings-row.danger .settings-row-icon {
+    background: var(--expense-bg);
+    color: var(--expense);
+}
+
+.settings-row.danger strong {
+    color: var(--expense);
+}
+
+.settings-switch {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    flex-shrink: 0;
+    width: 46px;
+    height: 26px;
+    border-radius: 999px;
+    background: #cbd5d1;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.settings-switch::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.settings-switch:checked {
+    background: var(--income);
+}
+
+.settings-switch:checked::before {
+    transform: translateX(20px);
+}
+
+#settings-message {
+    max-width: 640px;
+    margin: 14px 4px 0;
+}
+
+#settings-message:empty {
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+
+    .settings-card,
+    #settings-message {
+        max-width: none;
+    }
+
+    .settings-section-title {
+        margin-top: 20px;
+    }
+
+    /* ---------- Edit profile: full-screen page ---------- */
+
+    .profile-modal {
+        padding: 0;
+        align-items: stretch;
+        background: var(--paper);
+    }
+
+    .profile-modal-content {
+        max-width: none;
+        max-height: none;
+        height: 100%;
+        padding: calc(16px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+        border: 0;
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+    }
+
+    #edit-profile-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #edit-profile-form .settings-field input {
+        min-height: 52px;
+        border-radius: 14px;
+        font-size: 16px;
+    }
+
+    .profile-modal-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .profile-modal-actions button {
+        width: 100%;
+        min-height: 50px;
+        border-radius: 12px;
+    }
+
+    .profile-modal-actions .add-budget-btn {
+        background: var(--accent);
+        color: var(--ink);
+    }
+
+    /* ---------- Clear data: bottom sheet ---------- */
+
+    #clear-data-modal {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    #clear-data-modal .delete-modal {
+        width: 100%;
+        padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+        border: 0;
+        border-radius: 22px 22px 0 0;
+        transform: none;
+    }
+
+    #clear-data-modal .delete-modal-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    #clear-data-modal .delete-cancel-btn,
+    #clear-data-modal .delete-confirm-btn {
+        width: 100%;
+        height: 50px;
+        border-radius: 12px;
         white-space: nowrap;
     }
 }

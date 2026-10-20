@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0e2a26">
+    
     <title>Settings | FinanceFlow</title>
 
     <link rel="stylesheet" href="style.css">
@@ -51,7 +51,7 @@
         </div>
     </aside>
 
-    <main class="main-content">
+        <main class="main-content">
         <header class="page-header">
             <div>
                 <span class="eyebrow">PREFERENCES</span>
@@ -60,60 +60,176 @@
             </div>
         </header>
 
-        <section class="budgets-panel settings-panel">
-            <div class="panel-header">
-                <div>
-                    <h2>Personal Information</h2>
-                    <p>Customize how your account appears.</p>
-                </div>
+        <p class="settings-section-title">Profile</p>
+
+        <section class="settings-card">
+            <button type="button" class="settings-profile" id="open-edit-profile">
+                <span class="settings-avatar" id="settings-avatar">U</span>
+
+                <span class="settings-profile-info">
+                    <strong id="settings-name">User</strong>
+                    <small>Personal account</small>
+                </span>
+
+                <i class="fa-solid fa-pen settings-row-arrow"></i>
+            </button>
+        </section>
+
+        <p class="settings-section-title">Preferences</p>
+
+        <section class="settings-card">
+            <div class="settings-row">
+                <span class="settings-row-icon"><i class="fa-solid fa-coins"></i></span>
+                <span class="settings-row-text"><strong>Currency</strong></span>
+                <span class="settings-row-value">Nigerian Naira (₦)</span>
             </div>
 
-            <form id="profile-settings-form" class="settings-form">
+            <label class="settings-row" for="budget-notifications">
+                <span class="settings-row-icon"><i class="fa-regular fa-bell"></i></span>
+
+                <span class="settings-row-text">
+                    <strong>Notifications</strong>
+                    <small>Budget alerts</small>
+                </span>
+
+                <input type="checkbox" id="budget-notifications" class="settings-switch" checked>
+            </label>
+
+            <a href="budgets.html" class="settings-row">
+                <span class="settings-row-icon"><i class="fa-solid fa-wallet"></i></span>
+                <span class="settings-row-text"><strong>Budgets</strong></span>
+                <i class="fa-solid fa-chevron-right settings-row-arrow"></i>
+            </a>
+        </section>
+
+        <p class="settings-section-title">Data</p>
+
+        <section class="settings-card">
+            <button type="button" class="settings-row" id="export-btn">
+                <span class="settings-row-icon"><i class="fa-solid fa-file-arrow-down"></i></span>
+                <span class="settings-row-text"><strong>Export Transactions</strong></span>
+                <i class="fa-solid fa-chevron-right settings-row-arrow"></i>
+            </button>
+
+            <button type="button" class="settings-row danger" id="clear-btn">
+                <span class="settings-row-icon"><i class="fa-solid fa-trash"></i></span>
+                <span class="settings-row-text"><strong>Clear All Data</strong></span>
+            </button>
+        </section>
+
+        <p id="settings-message" role="status"></p>
+    </main>
+
+    <!-- Edit profile -->
+    <div class="profile-modal" id="profile-modal" hidden>
+        <div class="profile-modal-content">
+            <div class="profile-modal-header">
+                <div>
+                    <h2>Edit Profile</h2>
+                    <p>Update your personal information.</p>
+                </div>
+
+                <button type="button" id="close-profile-modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="edit-profile-form">
+                <div class="profile-photo-editor">
+                    <div class="profile-large-avatar" id="profile-preview-avatar">U</div>
+
+                    <div>
+                        <label for="profile-photo">Profile picture</label>
+                        <input
+                            type="file"
+                            id="profile-photo"
+                            accept="image/png,image/jpeg,image/webp"
+                        >
+                        <button type="button" id="remove-profile-photo">
+                            Remove picture
+                        </button>
+                    </div>
+                </div>
+
                 <div class="settings-field">
-                    <label for="display-name">Display Name</label>
+                    <label for="edit-display-name">Display name</label>
                     <input
                         type="text"
-                        id="display-name"
-                        name="displayName"
-                        placeholder="Enter your name"
+                        id="edit-display-name"
+                        maxlength="40"
                         required
                     >
                 </div>
 
-                <div class="settings-field">
-                    <label for="currency">Currency</label>
-                    <select id="currency" name="currency">
-                        <option value="NGN">Nigerian Naira (₦)</option>
-                    </select>
+                <p id="profile-form-message" role="status"></p>
+
+                <div class="profile-modal-actions">
+                    <button type="button" id="cancel-profile-edit">Cancel</button>
+
+                    <button type="submit" class="add-budget-btn">
+                        <i class="fa-solid fa-check"></i>
+                        Save Profile
+                    </button>
                 </div>
-
-                <button type="submit" class="add-budget-btn">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    Save Changes
-                </button>
-
-                <p id="settings-message" role="status"></p>
             </form>
-        </section>
+        </div>
+    </div>
 
-        <section class="budgets-panel settings-panel">
-            <div class="panel-header">
-                <div>
-                    <h2>Notifications</h2>
-                    <p>Choose which alerts you want to see.</p>
-                </div>
+    <!-- Clear all data -->
+    <div class="modal-overlay" id="clear-data-modal">
+        <div class="delete-modal">
+            <div class="delete-modal-icon">
+                <i class="fa-solid fa-trash"></i>
             </div>
 
-            <label class="settings-toggle-row" for="budget-notifications">
-                <span>
-                    <strong>Budget Alerts</strong>
-                    <small>Show alerts when spending approaches or exceeds a budget.</small>
-                </span>
+            <div class="delete-modal-content">
+                <h2>Clear all data?</h2>
+                <p>
+                    This deletes all your transactions and budgets.
+                    Your name and profile picture are kept.
+                    This action cannot be undone.
+                </p>
+            </div>
 
-                <input type="checkbox" id="budget-notifications" checked>
-            </label>
-        </section>
-    </main>
+            <div class="delete-modal-actions">
+                <button type="button" class="delete-cancel-btn" id="cancel-clear">
+                    Cancel
+                </button>
+
+                <button type="button" class="delete-confirm-btn" id="confirm-clear">
+                    <i class="fa-solid fa-trash"></i>
+                    Clear Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="transactions.html" class="bottom-nav-item">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <span>Transactions</span>
+        </a>
+
+        <a href="transactions.html?add=1" class="bottom-nav-add" aria-label="Add transaction">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+
+        <a href="analytics.html" class="bottom-nav-item">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Analytics</span>
+        </a>
+
+        <a href="settings.html" class="bottom-nav-item active" aria-current="page">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
 
     <script type="module" src="js/settings.js"></script>
 </body>
