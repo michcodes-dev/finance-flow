@@ -3427,6 +3427,10 @@ label {
     display: none;
 }
 
+.budgets-shortcut {
+    display: none;
+}
+
 @media (max-width: 768px) {
 
     /* ---------- Page ---------- */
@@ -4189,5 +4193,209 @@ label {
 
     .page-header-bell .notification-dot {
         border-color: var(--ink);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* ---------- Summary cards: 2 x 2 ---------- */
+
+    .analytics-summary {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .analytics-card {
+        min-width: 0;
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .analytics-card-top {
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .analytics-card-top > span {
+        font-size: 0.75rem;
+    }
+
+    .analytics-icon {
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 9px;
+        font-size: 0.8rem;
+    }
+
+    .analytics-card > strong {
+        font-size: 1.1rem;
+        overflow-wrap: anywhere;
+    }
+
+    .analytics-card small {
+        font-size: 0.7rem;
+    }
+
+
+    /* ---------- Panels stack in one column ---------- */
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .analytics-panel {
+        padding: 18px;
+    }
+
+    .panel-header {
+        margin-bottom: 16px;
+    }
+
+    .panel-header > div {
+        min-width: 0;
+    }
+
+    .panel-header p {
+        font-size: 0.78rem;
+    }
+
+    #analytics-period {
+        flex-shrink: 0;
+        padding: 6px 28px 6px 10px;
+        font-size: 0.8rem;
+    }
+
+
+    /* ---------- Income vs Expenses chart ---------- */
+
+    #income-expense-chart {
+        min-height: 0;
+        overflow-x: auto;
+        padding: 16px 12px 12px;
+    }
+
+    .analytics-chart-inner {
+        min-width: 440px;
+    }
+
+    .analytics-y-labels {
+        width: 56px;
+        font-size: 0.6rem;
+    }
+
+    .analytics-date-label {
+        font-size: 0.6rem;
+    }
+
+    .analytics-bar-slot {
+        width: min(38%, 14px);
+    }
+
+
+    /* ---------- Donut ---------- */
+
+    #category-chart {
+        min-height: 0;
+        padding: 18px 14px;
+    }
+
+    .donut-chart {
+        width: 150px;
+        height: 150px;
+    }
+
+    .donut-hole {
+        width: 100px;
+        height: 100px;
+    }
+
+    .donut-legend-info span {
+        text-transform: capitalize;
+    }
+
+
+    /* ---------- Spending breakdown: two lines per row ---------- */
+
+    .breakdown-item {
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        grid-template-areas:
+            "icon info amount"
+            "icon progress progress";
+        column-gap: 12px;
+        row-gap: 8px;
+        padding: 14px 0;
+    }
+
+    .breakdown-icon {
+        grid-area: icon;
+        grid-row: 1 / 3;
+        align-self: start;
+        width: 38px;
+        height: 38px;
+    }
+
+    .breakdown-info {
+        grid-area: info;
+    }
+
+    .breakdown-amount {
+        grid-area: amount;
+        align-self: start;
+    }
+
+    .breakdown-progress {
+        grid-area: progress;
+    }
+
+        /* ---------- Budgets shortcut ---------- */
+
+    .budgets-shortcut {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+    }
+
+    .budgets-shortcut-icon {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border-radius: var(--radius-md);
+        background: #fdf1d9;
+        color: var(--accent-dark);
+    }
+
+    .budgets-shortcut-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .budgets-shortcut-text strong {
+        display: block;
+        color: var(--ink);
+        font-size: 0.95rem;
+    }
+
+    .budgets-shortcut-text small {
+        color: var(--muted);
+        font-size: 0.78rem;
+    }
+
+    .budgets-shortcut-arrow {
+        color: var(--muted);
+        font-size: 0.8rem;
+    }
+
+    .analytics-bar-slot {
+        width: min(38%, 14px);
     }
 }

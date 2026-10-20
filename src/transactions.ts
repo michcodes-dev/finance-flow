@@ -578,3 +578,8 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderNotifications();
+
+if (new URLSearchParams(window.location.search).get("add") === "1") {
+    openTransactionModal();
+    window.history.replaceState(null, "", "transactions.html");
+}

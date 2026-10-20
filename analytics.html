@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0e2a26">
 
     <title>Analytics | FinanceFlow</title>
 
@@ -57,9 +57,29 @@
             <div>
                 <span class="eyebrow">FINANCIAL INSIGHTS</span>
                 <h1>Analytics</h1>
-                <p>
-                    Understand where your money is going.
-                </p>
+                <p>Understand where your money is going.</p>
+            </div>
+            
+            <div class="page-header-bell-wrap">
+                <button
+                    class="page-header-bell"
+                    id="notification-btn"
+                    type="button"
+                    aria-label="Notifications"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                >
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-dot" hidden></span>
+                </button>
+                
+                <div class="notification-dropdown" id="notification-dropdown" hidden>
+                    <div class="notification-header">
+                        <strong>Notifications</strong>
+                        <span id="notification-count">0</span>
+                    </div>
+                    <div class="notification-list" id="notification-list"></div>
+                </div>
             </div>
         </header>
         
@@ -156,7 +176,45 @@
                 <!-- Spending breakdown generated with TypeScript -->
             </div>
         </section>
+
+        <a href="budgets.html" class="budgets-shortcut">
+            <span class="budgets-shortcut-icon">
+                <i class="fa-solid fa-wallet"></i>
+            </span>
+            
+            <span class="budgets-shortcut-text">
+                <strong>Budgets</strong>
+                <small>Set monthly limits for each category</small>
+            </span>
+            <i class="fa-solid fa-chevron-right budgets-shortcut-arrow"></i>
+        </a>
     </main>
+
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <a href="index.html" class="bottom-nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        
+        <a href="transactions.html" class="bottom-nav-item">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <span>Transactions</span>
+        </a>
+        
+        <a href="transactions.html?add=1" class="bottom-nav-add" aria-label="Add transaction">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+        
+        <a href="analytics.html" class="bottom-nav-item active" aria-current="page">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Analytics</span>
+        </a>
+        
+        <a href="settings.html" class="bottom-nav-item">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
     <script type="module" src="./js/analytics.js"></script>
 </body>
 </html>

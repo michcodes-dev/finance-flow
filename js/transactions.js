@@ -414,4 +414,8 @@ document.addEventListener("keydown", (event) => {
         closeNotifications();
 });
 renderNotifications();
+if (new URLSearchParams(window.location.search).get("add") === "1") {
+    openTransactionModal();
+    window.history.replaceState(null, "", "transactions.html");
+}
 export {};
