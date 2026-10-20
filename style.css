@@ -3431,6 +3431,10 @@ label {
     display: none;
 }
 
+.page-back {
+    display: none;
+}
+
 @media (max-width: 768px) {
 
     /* ---------- Page ---------- */
@@ -4295,6 +4299,10 @@ label {
         width: min(38%, 14px);
     }
 
+    .analytics-bar-slot {
+        width: min(38%, 14px);
+    }
+
 
     /* ---------- Donut ---------- */
 
@@ -4395,7 +4403,247 @@ label {
         font-size: 0.8rem;
     }
 
-    .analytics-bar-slot {
-        width: min(38%, 14px);
+    .page-back {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* ---------- Green header ---------- */
+
+    .page-back {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+    }
+
+    .page-header:has(.add-budget-btn) {
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        margin: -20px -16px 16px;
+        padding: calc(40px + env(safe-area-inset-top)) 16px 22px;
+        border-radius: 0 0 24px 24px;
+        background: var(--ink);
+        text-align: left;
+    }
+
+    .page-header:has(.add-budget-btn) > div {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .page-header:has(.add-budget-btn) .eyebrow,
+    .page-header:has(.add-budget-btn) .add-budget-btn {
+        display: none;
+    }
+
+    .page-header:has(.add-budget-btn) h1 {
+        margin: 0;
+        color: #fff;
+        font-size: 1.35rem;
+    }
+
+    .page-header:has(.add-budget-btn) > div > p:last-child {
+        margin-top: 2px;
+        color: #9fb8b0;
+        font-size: 0.82rem;
+    }
+
+
+    /* ---------- Summary: total on top, two cards below ---------- */
+
+    .budget-summary {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .budget-summary-card {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .budget-summary-card:first-child {
+        grid-column: 1 / -1;
+        background: var(--ink);
+        border-color: var(--ink);
+    }
+
+    .budget-summary-card:first-child > span,
+    .budget-summary-card:first-child > small {
+        color: #9fb8b0;
+    }
+
+    .budget-summary-card:first-child > strong {
+        color: #fff;
+        font-size: 1.5rem;
+    }
+
+    .budget-summary-card > span {
+        margin-bottom: 8px;
+        font-size: 0.78rem;
+    }
+
+    .budget-summary-card > strong {
+        font-size: 1.1rem;
+        overflow-wrap: anywhere;
+    }
+
+    .budget-summary-card > small {
+        font-size: 0.7rem;
+    }
+
+
+    /* ---------- Alerts and budgets ---------- */
+
+    .budget-alerts-section,
+    .budgets-panel {
+        margin: 0 0 16px;
+        padding: 16px;
+        border-radius: var(--radius-lg);
+    }
+
+    .budget-alerts-heading {
+        margin-bottom: 12px;
+    }
+
+    .budget-alerts-heading p {
+        display: none;
+    }
+
+    .budget-alert {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .budget-alert-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .budget-item-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .budget-actions {
+        justify-content: space-between;
+    }
+
+    .budget-item-bottom {
+        font-size: 0.75rem;
+    }
+
+
+    /* ---------- Budget popup: full-screen page ---------- */
+
+    .budget-modal {
+        padding: 0;
+        align-items: stretch;
+        background: var(--paper);
+    }
+
+    .budget-modal-content {
+        display: flex;
+        flex-direction: column;
+        max-width: none;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+    }
+
+    .budget-modal-header {
+        align-items: center;
+        margin: 0;
+        padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .budget-modal-header p {
+        display: none;
+    }
+
+    .budget-modal-header h2 {
+        font-size: 1.1rem;
+    }
+
+    #budget-form {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 20px 16px 0;
+        overflow-y: auto;
+    }
+
+    .budget-form-group input,
+    .budget-form-group select {
+        min-height: 52px;
+        padding: 0 16px;
+        border-radius: 14px;
+        background-color: var(--surface);
+        font-size: 16px;
+    }
+
+    .budget-modal-actions {
+        position: sticky;
+        bottom: 0;
+        flex-direction: column-reverse;
+        gap: 10px;
+        margin: auto -16px 0;
+        padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+        background: var(--surface);
+        border-top: 1px solid var(--line);
+    }
+
+    .budget-modal-actions button {
+        width: 100%;
+        min-height: 50px;
+        border-radius: 12px;
+    }
+
+
+    /* ---------- Delete budget popup: bottom sheet ---------- */
+
+    #delete-budget-modal {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    #delete-budget-modal .delete-confirmation {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+        border: 0;
+        border-radius: 22px 22px 0 0;
+    }
+
+    #delete-budget-modal .delete-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    #delete-budget-modal .delete-modal-actions button {
+        width: 100%;
+        min-height: 50px;
+        white-space: nowrap;
     }
 }

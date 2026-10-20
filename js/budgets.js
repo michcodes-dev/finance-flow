@@ -121,9 +121,16 @@ function renderBudgetAlerts(expenses) {
             category: budget.category,
             isOverBudget,
             percentage,
-            message: isOverBudget
+            title: spent > budget.limit
+                ? "budget exceeded"
+                : spent === budget.limit
+                    ? "budget limit reached"
+                    : "budget almost reached",
+            message: spent > budget.limit
                 ? `You have exceeded this budget by ${formatMoney(difference)}.`
-                : `${formatMoney(budget.limit - spent)} remaining before you reach your limit.`,
+                : spent === budget.limit
+                    ? "You have used your entire budget."
+                    : `${formatMoney(budget.limit - spent)} remaining before you reach your limit.`,
         };
     })
         .filter((alert) => alert !== null);
@@ -153,9 +160,7 @@ function renderBudgetAlerts(expenses) {
                     </div>
 
                     <div class="budget-alert-content">
-                        <h3>${category} ${alert.isOverBudget
-            ? "budget exceeded"
-            : "budget almost reached"}</h3>
+                        <h3>${category} ${alert.title}</h3>
                         <p>${alert.message}</p>
                     </div>
 
@@ -210,11 +215,13 @@ function renderBudgets() {
             ? (spent / budget.limit) * 100
             : 0;
         const progress = Math.min(percentage, 100);
-        const status = percentage >= 100
+        const status = spent > budget.limit
             ? "Over budget"
-            : percentage >= 80
-                ? "Approaching limit"
-                : "On track";
+            : spent === budget.limit
+                ? "Limit reached"
+                : percentage >= 80
+                    ? "Approaching limit"
+                    : "On track";
         return `
             <div class="budget-item">
                 <div class="budget-item-top">
@@ -333,4 +340,7 @@ confirmDeleteBudgetBtn?.addEventListener("click", () => {
     closeDeleteBudgetModal();
     renderBudgets();
 });
+document
+    .querySelector("#bottom-add-budget")
+    ?.addEventListener("click", openBudgetModal);
 export {};

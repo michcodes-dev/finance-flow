@@ -219,13 +219,22 @@ function renderBudgetAlerts(expenses: Transaction[]): void {
             const isOverBudget = percentage >= 100;
             const difference = Math.abs(budget.limit - spent);
 
-            return {
+                        return {
                 category: budget.category,
                 isOverBudget,
                 percentage,
-                message: isOverBudget
-                    ? `You have exceeded this budget by ${formatMoney(difference)}.`
-                    : `${formatMoney(budget.limit - spent)} remaining before you reach your limit.`,
+                title:
+                    spent > budget.limit
+                        ? "budget exceeded"
+                        : spent === budget.limit
+                            ? "budget limit reached"
+                            : "budget almost reached",
+                message:
+                    spent > budget.limit
+                        ? `You have exceeded this budget by ${formatMoney(difference)}.`
+                        : spent === budget.limit
+                            ? "You have used your entire budget."
+                            : `${formatMoney(budget.limit - spent)} remaining before you reach your limit.`,
             };
         })
         .filter((alert) => alert !== null);
@@ -264,11 +273,7 @@ function renderBudgetAlerts(expenses: Transaction[]): void {
                     </div>
 
                     <div class="budget-alert-content">
-                        <h3>${category} ${
-                            alert.isOverBudget
-                                ? "budget exceeded"
-                                : "budget almost reached"
-                        }</h3>
+                        <h3>${category} ${alert.title}</h3>
                         <p>${alert.message}</p>
                     </div>
 
@@ -345,8 +350,10 @@ function renderBudgets(): void {
 
         const progress = Math.min(percentage, 100);
 
-        const status = percentage >= 100
+        const status = spent > budget.limit
             ? "Over budget"
+            : spent === budget.limit
+            ? "Limit reached"
             : percentage >= 80
                 ? "Approaching limit"
                 : "On track";
@@ -511,3 +518,6 @@ confirmDeleteBudgetBtn?.addEventListener("click", () => {
     renderBudgets();
 });
 
+document
+    .querySelector<HTMLButtonElement>("#bottom-add-budget")
+    ?.addEventListener("click", openBudgetModal);
